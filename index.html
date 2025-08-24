@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>プロフィールカード</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- 入力エリア -->
+    <div class="input-area">
+      <h2>プロフィール入力</h2>
+      <input type="text" id="name" placeholder="名前" />
+      <textarea id="bio" placeholder="自己紹介"></textarea>
+      <input type="text" id="pn" placeholder="PN" />
+      <input type="text" id="rank" placeholder="ランク" />
+      <input type="text" id="mainChar" placeholder="メインキャラ" />
+      <input type="text" id="server" placeholder="サーバー" />
+      <input type="text" id="env" placeholder="プレイ環境" />
+      <input type="text" id="time" placeholder="IN時間帯" />
+      <input type="text" id="sns" placeholder="UID" />
+
+      <p>プロフィール画像:</p>
+      <input type="file" id="iconUpload" accept="image/*" />
+
+      <label for="bgSelect">背景画像を選択：</label>
+      <select id="bgSelect">
+        <option value="background1.jpg">秋雲</option>
+        <option value="background2.jpg">キャッティ</option>
+        <option value="background3.jpg">稲</option>
+        <option value="background4.jpg">ヒビキ</option>
+        <option value="background5.jpg">シグナス</option>
+        <option value="background6.jpg">カゼ＆ヒカリ</option>
+        <option value="background7.jpg">エヴァ</option>
+        <option value="background8.jpg">シュウウ</option>
+        <option value="background9.jpg">ヴァルキア</option>
+        <option value="background10.jpg">集合1</option>
+        <option value="background11.jpg">集合2</option>
+        <option value="background12.jpg">ボルゾイ</option>
+      </select>
+    </div>
+
+    <!-- プレビューエリア -->
+    <div class="preview-area">
+      <div class="card-content">
+        <div class="profile-header">
+          <img src="" alt="アイコン" id="previewIcon" />
+          <h2 id="previewName">名前</h2>
+        </div>
+        <p id="previewBio">自己紹介</p>
+        <ul>
+          <li><strong>PN:</strong> <span id="previewPN"></span></li>
+          <li><strong>ランク:</strong> <span id="previewRank"></span></li>
+          <li><strong>メインキャラ:</strong> <span id="previewMainChar"></span></li>
+          <li><strong>サーバー:</strong> <span id="previewServer"></span></li>
+          <li><strong>プレイ環境:</strong> <span id="previewEnv"></span></li>
+          <li><strong>IN時間帯:</strong> <span id="previewTime"></span></li>
+          <li><strong>UID:</strong> <span id="previewSNS"></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <button id="saveBtn">画像として保存</button>
+
+  <!-- ライブラリとスクリプト -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
