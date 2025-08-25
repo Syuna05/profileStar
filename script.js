@@ -1,9 +1,10 @@
 const iconUpload = document.getElementById('iconUpload');
 const previewIcon = document.getElementById('previewIcon');
 const bgSelect = document.getElementById('bgSelect');
-const previewArea = document.querySelector('.card-content');
+const previewArea = document.querySelector('.preview-area');
+const cardContent = document.getElementById('cardContent');
 
-// アイコン画像アップロード時の処理
+// アイコン画像アップロード
 iconUpload.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) {
@@ -22,7 +23,7 @@ iconUpload.addEventListener('change', (e) => {
 // 初期状態はアイコン非表示
 previewIcon.style.display = 'none';
 
-// プロフィールカードのテキストを更新する関数
+// プロフィールカード更新
 function updateCard() {
   document.getElementById('previewName').textContent = document.getElementById('name').value || "名前";
   document.getElementById('previewBio').textContent = document.getElementById('bio').value || "自己紹介";
@@ -35,28 +36,46 @@ function updateCard() {
   document.getElementById('previewSNS').textContent = document.getElementById('sns').value || "";
 }
 
-// 入力イベントのリアルタイム反映
+// フォント自動縮小
+function adjustFontSize() {
+  const maxHeight = 800; 
+  let fontSize = 16; 
+
+  cardContent.style.fontSize = fontSize + "px";
+
+  while (cardContent.scrollHeight > maxHeight && fontSize > 10) {
+    fontSize--;
+    cardContent.style.fontSize = fontSize + "px";
+  }
+}
+
+// 入力イベント
 const inputs = document.querySelectorAll('input[type="text"], textarea');
 inputs.forEach(input => {
-  input.addEventListener('input', updateCard);
+  input.addEventListener('input', () => {
+    updateCard();
+    adjustFontSize();
+  });
 });
 
-// 背景画像切り替え
+// 背景切り替え
 bgSelect.addEventListener('change', () => {
   const bgFile = bgSelect.value;
-  previewArea.style.backgroundImage = `url('${bgFile}')`;
+  cardContent.style.backgroundImage = `url('${bgFile}')`;
 
   if (bgFile === 'background5.jpg') {
-    previewArea.style.backgroundPosition = '60% center';
+    cardContent.style.backgroundPosition = '60% center';
   } else {
-    previewArea.style.backgroundPosition = 'center';
+    cardContent.style.backgroundPosition = 'center';
   }
+  adjustFontSize();
 });
 
-// 初期表示
+// 初期化
 updateCard();
+adjustFontSize();
 
-// 画像保存（html2canvas）
+// 保存処理
 document.getElementById('saveBtn').addEventListener('click', () => {
   html2canvas(document.querySelector('.card-content'), {useCORS: true}).then(canvas => {
     const link = document.createElement('a');
