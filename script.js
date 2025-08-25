@@ -3,7 +3,7 @@ const previewIcon = document.getElementById('previewIcon');
 const bgSelect = document.getElementById('bgSelect');
 const previewArea = document.querySelector('.preview-area');
 
-// アイコン画像アップロード
+// アイコン画像アップロード時の処理
 iconUpload.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) {
@@ -19,10 +19,10 @@ iconUpload.addEventListener('change', (e) => {
   reader.readAsDataURL(file);
 });
 
-// 初期は非表示
+// 初期状態はアイコン非表示
 previewIcon.style.display = 'none';
 
-// カード更新
+// プロフィールカードのテキスト更新
 function updateCard() {
   document.getElementById('previewName').textContent = document.getElementById('name').value || "名前";
   document.getElementById('previewBio').textContent = document.getElementById('bio').value || "自己紹介";
@@ -35,12 +35,13 @@ function updateCard() {
   document.getElementById('previewSNS').textContent = document.getElementById('sns').value || "";
 }
 
-// 入力イベント
-document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+// 入力イベントで更新
+const inputs = document.querySelectorAll('input[type="text"], textarea');
+inputs.forEach(input => {
   input.addEventListener('input', updateCard);
 });
 
-// 背景切替
+// 背景切り替え
 bgSelect.addEventListener('change', () => {
   const bgFile = bgSelect.value;
   previewArea.style.backgroundImage = `url('${bgFile}')`;
@@ -55,7 +56,7 @@ bgSelect.addEventListener('change', () => {
 // 初期表示
 updateCard();
 
-// 保存（枠ごと保存）
+// 保存（枠ごと保存するために preview-area を対象にする）
 document.getElementById('saveBtn').addEventListener('click', () => {
   html2canvas(document.querySelector('.preview-area'), {useCORS: true}).then(canvas => {
     const link = document.createElement('a');

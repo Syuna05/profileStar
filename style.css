@@ -21,7 +21,6 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 250px;
 }
 
 .input-area input,
@@ -41,31 +40,23 @@ body {
   min-height: 80px;
 }
 
+/* カード枠エリア */
 .preview-area {
   width: 400px;
   min-height: 600px;
-  max-height: 800px;     /* 高さ制限 */
+  max-height: 800px;
   position: relative;
-  border: 4px solid black; /* 黒い枠 */
-  border-radius: 20px;     /* 角丸 */
+  border-radius: 20px;
   padding: 20px;
   box-sizing: border-box;
   overflow: hidden;
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
 
-.preview-area::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-  z-index: 0;
+  /* ←黒い枠を外側に出す */
+  box-shadow: 0 0 0 6px black;
 }
 
 .card-content {
@@ -81,7 +72,6 @@ body {
   box-sizing: border-box;
   font-size: 16px;
   line-height: 1.5;
-  overflow-wrap: break-word;
 }
 
 .profile-header {
@@ -97,7 +87,6 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid white;
-  box-shadow: 0 0 0 3px black; /* 白の外に黒枠 */
 }
 
 .profile-header h2 {
@@ -120,6 +109,7 @@ body {
   padding: 0 5px;
   margin: 0;
   line-height: 1.5;
+  word-break: break-word;
 }
 
 .card-content li {
