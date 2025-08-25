@@ -22,7 +22,7 @@ iconUpload.addEventListener('change', (e) => {
 // 初期状態はアイコン非表示
 previewIcon.style.display = 'none';
 
-// プロフィールカードのテキスト更新
+// プロフィールカードのテキストを更新する関数
 function updateCard() {
   document.getElementById('previewName').textContent = document.getElementById('name').value || "名前";
   document.getElementById('previewBio').textContent = document.getElementById('bio').value || "自己紹介";
@@ -35,17 +35,18 @@ function updateCard() {
   document.getElementById('previewSNS').textContent = document.getElementById('sns').value || "";
 }
 
-// 入力イベントで更新
+// テキスト入力のリアルタイム更新イベント
 const inputs = document.querySelectorAll('input[type="text"], textarea');
 inputs.forEach(input => {
   input.addEventListener('input', updateCard);
 });
 
-// 背景切り替え
+// 背景画像切り替えイベント
 bgSelect.addEventListener('change', () => {
   const bgFile = bgSelect.value;
   previewArea.style.backgroundImage = `url('${bgFile}')`;
 
+  // 背景5だけ右寄りに
   if (bgFile === 'background5.jpg') {
     previewArea.style.backgroundPosition = '60% center';
   } else {
@@ -53,10 +54,10 @@ bgSelect.addEventListener('change', () => {
   }
 });
 
-// 初期表示
+// ページ読み込み時に初期表示
 updateCard();
 
-// 保存（枠ごと保存するために preview-area を対象にする）
+// 画像保存処理
 document.getElementById('saveBtn').addEventListener('click', () => {
   html2canvas(document.querySelector('.preview-area'), {useCORS: true}).then(canvas => {
     const link = document.createElement('a');
