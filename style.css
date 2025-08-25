@@ -26,7 +26,7 @@ body {
 .input-area textarea,
 .input-area select {
   margin-bottom: 15px;
-  padding: 8px 12px;
+  padding: 10px 14px;
   font-size: 14px;
   border-radius: 6px;
   border: 1px solid #555;
@@ -48,7 +48,18 @@ body {
   overflow: hidden;
 }
 
-/* 背景は card-content に設定 */
+.preview-area::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  z-index: 0;
+}
+
 .card-content {
   position: relative;
   z-index: 1;
@@ -56,16 +67,14 @@ body {
   height: 100%;
   color: white;
   text-shadow: 0 0 5px black;
-  background-color: transparent;
-  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
   font-size: 16px;
   line-height: 1.5;
-  background-size: cover;   /* ← 隙間なし */
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .profile-header {
@@ -81,7 +90,6 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid white;
-  background-color: rgba(255,255,255,0.2); /* アイコン未設定時のプレースホルダー */
 }
 
 .profile-header h2 {
@@ -123,4 +131,45 @@ body {
 }
 
 #saveBtn:hover {
-  background-color: #0056
+  background-color: #0056b3;
+}
+
+/* 📱 スマホ対応 */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-area {
+    width: 100%;
+  }
+
+  .preview-area {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 2 / 3; /* 画像比率を維持 */
+    height: auto;
+  }
+
+  .card-content {
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  .profile-header img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .profile-header h2 {
+    font-size: 20px;
+  }
+
+  #saveBtn {
+    width: 100%;
+    max-width: 400px;
+    padding: 14px;
+    font-size: 18px;
+  }
+}

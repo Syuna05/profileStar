@@ -1,27 +1,26 @@
 const iconUpload = document.getElementById('iconUpload');
 const previewIcon = document.getElementById('previewIcon');
 const bgSelect = document.getElementById('bgSelect');
-const previewArea = document.querySelector('.preview-area');
-const cardContent = document.querySelector('.card-content');
+const previewArea = document.querySelector('.card-content');
 
 // アイコン画像アップロード時の処理
 iconUpload.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) {
     previewIcon.src = '';
-    previewIcon.style.opacity = '0'; // 非表示代わりに透明
+    previewIcon.style.display = 'none';
     return;
   }
   const reader = new FileReader();
   reader.onload = () => {
     previewIcon.src = reader.result;
-    previewIcon.style.opacity = '1'; // 表示
+    previewIcon.style.display = 'block';
   };
   reader.readAsDataURL(file);
 });
 
-// 初期状態はアイコン透明
-previewIcon.style.opacity = '0';
+// 初期状態はアイコン非表示
+previewIcon.style.display = 'none';
 
 // プロフィールカードのテキストを更新する関数
 function updateCard() {
@@ -36,7 +35,7 @@ function updateCard() {
   document.getElementById('previewSNS').textContent = document.getElementById('sns').value || "";
 }
 
-// 入力リアルタイム反映
+// 入力イベントのリアルタイム反映
 const inputs = document.querySelectorAll('input[type="text"], textarea');
 inputs.forEach(input => {
   input.addEventListener('input', updateCard);
@@ -45,28 +44,24 @@ inputs.forEach(input => {
 // 背景画像切り替え
 bgSelect.addEventListener('change', () => {
   const bgFile = bgSelect.value;
-  cardContent.style.backgroundImage = `url('${bgFile}')`;
+  previewArea.style.backgroundImage = `url('${bgFile}')`;
 
-  // 背景5だけ右寄りに、他は中央
   if (bgFile === 'background5.jpg') {
-    cardContent.style.backgroundPosition = '60% center';
+    previewArea.style.backgroundPosition = '60% center';
   } else {
-    cardContent.style.backgroundPosition = 'center';
+    previewArea.style.backgroundPosition = 'center';
   }
 });
 
 // 初期表示
 updateCard();
 
-// 画像保存処理（html2canvas使用）
+// 画像保存（html2canvas）
 document.getElementById('saveBtn').addEventListener('click', () => {
-  html2canvas(document.querySelector('.preview-area'), {
-    useCORS: true,
-    allowTaint: true  // ← 追加！
-  }).then(canvas => {
+  html2canvas(document.querySelector('.card-content'), {useCORS: true}).then(canvas => {
     const link = document.createElement('a');
     link.download = 'profile_card.png';
-    link.href = canvas.toDataURL("image/png");
+    link.href = canvas.toDataURL();
     link.click();
   }).catch(err => {
     console.error('html2canvas error:', err);
