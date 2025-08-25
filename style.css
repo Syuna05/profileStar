@@ -19,9 +19,9 @@ body {
 
 .input-area {
   flex: 1;
-  min-width: 250px;
   display: flex;
   flex-direction: column;
+  min-width: 250px;
 }
 
 .input-area input,
@@ -41,16 +41,19 @@ body {
   min-height: 80px;
 }
 
-/* ★ カード背景を黒い枠で囲う */
 .preview-area {
   width: 400px;
   min-height: 600px;
-  max-height: 800px;   /* 高さ制限 */
+  max-height: 800px;     /* 高さ制限 */
   position: relative;
-  border: 4px solid black;  /* 黒枠 */
-  border-radius: 20px;      /* 角丸 */
+  border: 4px solid black; /* 黒い枠 */
+  border-radius: 20px;     /* 角丸 */
+  padding: 20px;
   box-sizing: border-box;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .preview-area::before {
@@ -73,15 +76,12 @@ body {
   color: white;
   text-shadow: 0 0 5px black;
   background-color: transparent;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto;
   font-size: 16px;
   line-height: 1.5;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow-wrap: break-word;
 }
 
 .profile-header {
@@ -96,8 +96,8 @@ body {
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid white;
-  box-shadow: 0 0 0 4px black;
+  border: 2px solid white;
+  box-shadow: 0 0 0 3px black; /* 白の外に黒枠 */
 }
 
 .profile-header h2 {
@@ -106,10 +106,9 @@ body {
   line-height: 1.2;
 }
 
-/* ★ テキストが枠に収まらない場合に縮小 */
 .card-content p,
 .card-content li {
-  font-size: clamp(12px, 2vw, 16px);
+  font-size: 16px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 6px;
   padding: 6px 10px;
@@ -121,7 +120,6 @@ body {
   padding: 0 5px;
   margin: 0;
   line-height: 1.5;
-  word-break: break-word;
 }
 
 .card-content li {
@@ -141,16 +139,4 @@ body {
 
 #saveBtn:hover {
   background-color: #0056b3;
-}
-
-/* 📱 スマホ対応 */
-@media (max-width: 600px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-  .preview-area {
-    width: 90%;
-    height: auto;
-  }
 }

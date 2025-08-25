@@ -2,7 +2,6 @@ const iconUpload = document.getElementById('iconUpload');
 const previewIcon = document.getElementById('previewIcon');
 const bgSelect = document.getElementById('bgSelect');
 const previewArea = document.querySelector('.preview-area');
-const cardContent = document.querySelector('.card-content');
 
 // アイコン画像アップロード
 iconUpload.addEventListener('change', (e) => {
@@ -20,10 +19,10 @@ iconUpload.addEventListener('change', (e) => {
   reader.readAsDataURL(file);
 });
 
-// 初期状態は非表示
+// 初期は非表示
 previewIcon.style.display = 'none';
 
-// テキスト更新関数
+// カード更新
 function updateCard() {
   document.getElementById('previewName').textContent = document.getElementById('name').value || "名前";
   document.getElementById('previewBio').textContent = document.getElementById('bio').value || "自己紹介";
@@ -36,29 +35,29 @@ function updateCard() {
   document.getElementById('previewSNS').textContent = document.getElementById('sns').value || "";
 }
 
-// 入力イベントでリアルタイム更新
+// 入力イベント
 document.querySelectorAll('input[type="text"], textarea').forEach(input => {
   input.addEventListener('input', updateCard);
 });
 
-// 背景切り替え
+// 背景切替
 bgSelect.addEventListener('change', () => {
   const bgFile = bgSelect.value;
-  cardContent.style.backgroundImage = `url('${bgFile}')`;
+  previewArea.style.backgroundImage = `url('${bgFile}')`;
 
   if (bgFile === 'background5.jpg') {
-    cardContent.style.backgroundPosition = '60% center';
+    previewArea.style.backgroundPosition = '60% center';
   } else {
-    cardContent.style.backgroundPosition = 'center';
+    previewArea.style.backgroundPosition = 'center';
   }
 });
 
 // 初期表示
 updateCard();
 
-// 保存（html2canvas）
+// 保存（枠ごと保存）
 document.getElementById('saveBtn').addEventListener('click', () => {
-  html2canvas(document.querySelector('.card-content'), {useCORS: true}).then(canvas => {
+  html2canvas(document.querySelector('.preview-area'), {useCORS: true}).then(canvas => {
     const link = document.createElement('a');
     link.download = 'profile_card.png';
     link.href = canvas.toDataURL();
